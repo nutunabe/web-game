@@ -24,14 +24,14 @@ window.onload = function () {
   this.console.log(player.height);
 
   //вызов этой функции
-  animation();
+  //update();
 }
 
 //ФУНКЦИЯ ОЧИСТКИ ЭКРАНА И ВЫЗОВА ШАГА АНИМАЦИИ
-function animation() {
+function update() {
   draw();
 
-  requestAnimationFrame(animation); //вызов функции animation() при первой возможности
+  requestAnimationFrame(update); //вызов функции animation() при первой возможности
 }
 
 function draw() {
@@ -42,7 +42,6 @@ function draw() {
 }
 
 function drawPlayer() {
-  movePlayer();
   _context.strokeStyle = "yellow";
   _context.strokeRect(player.x + 1, player.y + 1, player.width - 2, player.height - 2);
 }
@@ -57,31 +56,3 @@ function movePlayer() {
 
   }
 }
-
-
-//========================================================
-
-// function animate({
-//   duration,
-//   draw,
-//   timing
-// }) {
-
-//   let start = performance.now();
-
-//   requestAnimationFrame(function animate(time) {
-//     // timeFraction изменяется от 0 до 1
-//     let timeFraction = (time - start) / duration;
-//     if (timeFraction > 1) timeFraction = 1;
-
-//     // вычисление текущего состояния анимации
-//     let progress = timing(timeFraction);
-
-//     draw(progress); // отрисовать её
-
-//     if (timeFraction < 1) {
-//       requestAnimationFrame(animate);
-//     }
-
-//   });
-//}
