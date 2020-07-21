@@ -24,7 +24,7 @@ window.onload = function () {
   this.console.log(player.height);
 
   //вызов этой функции
-  //update();
+  update();
 }
 
 //ФУНКЦИЯ ОЧИСТКИ ЭКРАНА И ВЫЗОВА ШАГА АНИМАЦИИ
