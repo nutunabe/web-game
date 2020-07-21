@@ -34,7 +34,7 @@ window.onload = function () {
   this.console.log(player.height);
 
   while (game_is_running) {
-    console.log("jsdfjhdfg");
+    console.log("jjds");
     loops = 0;
     while (getTickCount() > next_tick && loops < max_frameskip) {
       updateGame();
