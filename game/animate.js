@@ -7,17 +7,17 @@ let loops;
 let interpolation;
 
 let game_is_running = true;
+let view_position;
 
 let
   _canvas,
   _context,
   _width,
   _height,
-  player;
+  player,
+  speed = 0;
 
 window.onload = function () {
-  this.console.log("hi");
-
   _width = window.innerWidth;
   _height = window.innerHeight;
   _canvas = document.getElementById("gameWindow");
@@ -25,63 +25,63 @@ window.onload = function () {
   _context.canvas.width = _width;
   _context.canvas.height = _height;
 
-
   player = new Player(0, _height - 100, 50, 100);
 
-  this.console.log(player.x);
-  this.console.log(player.y);
-  this.console.log(player.width);
-  this.console.log(player.height);
+  update();
+}
 
-  while (game_is_running) {
-    console.log("jjds");
-    loops = 0;
-    while (getTickCount() > next_tick && loops < max_frameskip) {
-      updateGame();
+function update() {
+  loops = 0;
 
-      next_tick += skip_ticks;
-      loops++;
-    }
+  while (getTickCount() > next_tick && loops < max_frameskip) {
+    updateGame();
 
-    interpolation = (getTickCount() + skip_ticks - next_tick) / (skip_ticks);
-    displayGame(interpolation);
+    next_tick += skip_ticks;
+    loops++;
   }
+
+  interpolation = (getTickCount() + skip_ticks - next_tick) / (skip_ticks);
+  displayGame(interpolation);
+  requestAnimationFrame(update);
+}
+
+function movePlayer() {
+  whatKey();
+  if (direction == "left") {
+    speed = -15;
+  } else if (direction == "right") {
+    speed = +15;
+  } else {
+    // . . .
+    speed = 0;
+  }
+
+  player.x += speed;
+}
+
+function displayGame(interpolation) {
+  view_position = player.x + (speed * interpolation);
+  drawEnvironment();
+  drawPlayer();
+}
+
+function drawEnvironment() {
+  _context.clearRect(0, 0, _canvas.width, _canvas.height);
+  _context.fillStyle = "black";
+  _context.fillRect(0, 0, _canvas.width, _canvas.height);
+}
+
+function drawPlayer() {
+  _context.strokeStyle = "yellow";
+  _context.strokeRect(view_position + 1, player.y + 1, player.width - 2, player.height - 2);
+}
+
+function updateGame() {
+  movePlayer();
 }
 
 function getTickCount() {
   var d = new Date();
   var n = d.getTime();
   return n;
-}
-
-function draw() {
-  _context.clearRect(0, 0, _canvas.width, _canvas.height);
-  _context.fillStyle = "black";
-  _context.fillRect(0, 0, _canvas.width, _canvas.height);
-  drawPlayer();
-}
-
-function drawPlayer() {
-  _context.strokeStyle = "yellow";
-  _context.strokeRect(player.x + 1, player.y + 1, player.width - 2, player.height - 2);
-}
-
-function movePlayer() {
-  whatKey();
-  if (direction == "left") {
-    player.x -= 1;
-  } else if (direction == "right") {
-    player.x += 1;
-  } else {
-
-  }
-}
-
-function displayGame(interpolation) {
-  interpolation = 0;
-  draw();
-}
-
-function updateGame() {
-  movePlayer();
 }
