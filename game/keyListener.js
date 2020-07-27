@@ -13,19 +13,19 @@ window.addEventListener("keyup", function (e) {
 });
 
 function whatKey() {
-  if (true) {
-    if (keys[39]) {
-      direction = "right";
-      console.log("right");
-    } else if (keys[37]) {
-      direction = "left";
-      console.log("left");
-    } else {
-      direction = "";
-    }
-
-    if (keys[49] || keys[97]) {
-      // attack . . .
-    }
+  if (keys[39]) {
+    direction = "right";
+    player.velocity = 15;
+  } else if (keys[37]) {
+    direction = "left";
+    player.velocity = -15;
+  } else {
+    direction = "";
+    player.velocity = 0;
   }
+
+  if (keys[49] || keys[97]) {
+    // attack . . .
+  }
+
 }

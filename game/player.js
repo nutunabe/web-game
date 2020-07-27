@@ -5,7 +5,9 @@ function Player(x, y, width, height) {
   this.y = y;
   this.width = width;
   this.height = height;
+  this.mass = 50;
   this.acceleration = 0;
+  this.velocity = 0;
   this.maxVelocity = 15;
   this.health = 100;
   this.stamina = 100;

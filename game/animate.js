@@ -47,22 +47,20 @@ function update() {
 
 function movePlayer() {
   whatKey();
-  if (direction == "left") {
-    speed = -15;
-  } else if (direction == "right") {
-    speed = +15;
-  } else {
-    // . . .
-    speed = 0;
-  }
 
-  player.x += speed;
+  player.x += player.velocity;
+}
+
+function updateGame() {
+  movePlayer();
+  // . . . 
 }
 
 function displayGame(interpolation) {
-  view_position = player.x + (speed * interpolation);
   drawEnvironment();
   drawPlayer();
+  view_position = player.x + (player.velocity * interpolation);
+  // . . . 
 }
 
 function drawEnvironment() {
@@ -74,10 +72,6 @@ function drawEnvironment() {
 function drawPlayer() {
   _context.strokeStyle = "yellow";
   _context.strokeRect(view_position + 1, player.y + 1, player.width - 2, player.height - 2);
-}
-
-function updateGame() {
-  movePlayer();
 }
 
 function getTickCount() {
