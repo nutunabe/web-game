@@ -15,10 +15,10 @@ window.addEventListener("keyup", function (e) {
 function whatKey() {
   if (keys[39]) {
     direction = "right";
-    player.velocity = 15;
+    player.velocity = player.maxVelocity;
   } else if (keys[37]) {
     direction = "left";
-    player.velocity = -15;
+    player.velocity = -1 * player.maxVelocity;
   } else {
     direction = "";
     player.velocity = 0;

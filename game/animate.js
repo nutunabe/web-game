@@ -34,7 +34,7 @@ function update() {
   loops = 0;
 
   while (getTickCount() > next_tick && loops < max_frameskip) {
-    updateGame();
+  updateGame();
 
     next_tick += skip_ticks;
     loops++;
@@ -59,6 +59,7 @@ function updateGame() {
 function displayGame(interpolation) {
   drawEnvironment();
   drawPlayer();
+  interpolation = 0;
   view_position = player.x + (player.velocity * interpolation);
   // . . . 
 }
