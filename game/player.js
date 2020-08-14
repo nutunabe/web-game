@@ -7,7 +7,7 @@ function Player(x, y, width, height) {
   this.height = height;
   this.mass = 50;
   this.velocity = 0;
-  this.maxVelocity = 30;
+  this.maxVelocity = 10;
   this.health = 100;
   this.stamina = 100;
   this.regenerationRate = 2;

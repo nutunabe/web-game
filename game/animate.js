@@ -1,31 +1,30 @@
-let ticks_per_sec = 25,
-  skip_ticks = 1000 / ticks_per_sec,
-  max_frameskip = 5;
+let ticks_per_sec = 25;
+let skip_ticks = 1000 / ticks_per_sec;
+let max_frameskip = 5;
 
 let next_tick = getTickCount();
 let loops;
 let interpolation;
-
-let game_is_running = true;
 let view_position;
 
-let
-  _canvas,
-  _context,
-  _width,
-  _height,
-  player,
-  speed = 0;
+let game_is_running = true;
+
+let view_canvas;
+let view_context;
+
+let player;
 
 window.onload = function () {
-  _width = window.innerWidth;
-  _height = window.innerHeight;
-  _canvas = document.getElementById("gameWindow");
-  _context = _canvas.getContext("2d");
-  _context.canvas.width = _width;
-  _context.canvas.height = _height;
+  document.getElementById("username").innerHTML = "ksdjvbdsfhbsd";
 
-  player = new Player(0, _height - 100, 50, 100);
+  view_canvas = document.getElementById("gameWindow");
+  view_canvas.width = window.innerWidth;
+  view_canvas.height = window.innerHeight;
+  view_context = view_canvas.getContext("2d");
+
+  console.log(view_canvas.width + " " + view_canvas.height);
+
+  player = new Player(0, view_canvas.height - 100, 50, 100);
 
   update();
 }
@@ -34,7 +33,7 @@ function update() {
   loops = 0;
 
   while (getTickCount() > next_tick && loops < max_frameskip) {
-  updateGame();
+    updateGame();
 
     next_tick += skip_ticks;
     loops++;
@@ -43,6 +42,12 @@ function update() {
   interpolation = (getTickCount() + skip_ticks - next_tick) / (skip_ticks);
   displayGame(interpolation);
   requestAnimationFrame(update);
+}
+
+function getTickCount() {
+  let date = new Date();
+  let now = date.getTime();
+  return now;
 }
 
 function movePlayer() {
@@ -59,24 +64,17 @@ function updateGame() {
 function displayGame(interpolation) {
   drawEnvironment();
   drawPlayer();
-  interpolation = 0;
   view_position = player.x + (player.velocity * interpolation);
   // . . . 
 }
 
-function drawEnvironment() {
-  _context.clearRect(0, 0, _canvas.width, _canvas.height);
-  _context.fillStyle = "black";
-  _context.fillRect(0, 0, _canvas.width, _canvas.height);
+function drawEnvironment() { // temp
+  view_context.clearRect(0, 0, view_canvas.width, view_canvas.height);
+  view_context.fillStyle = "black";
+  view_context.fillRect(0, 0, view_canvas.width, view_canvas.height);
 }
 
 function drawPlayer() {
-  _context.strokeStyle = "yellow";
-  _context.strokeRect(view_position + 1, player.y + 1, player.width - 2, player.height - 2);
-}
-
-function getTickCount() {
-  var d = new Date();
-  var n = d.getTime();
-  return n;
+  view_context.strokeStyle = "yellow";
+  view_context.strokeRect(view_position + 1, player.y + 1, player.width - 2, player.height - 2);
 }
